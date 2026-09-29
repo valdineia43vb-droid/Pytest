@@ -1,0 +1,37 @@
+info:
+  name: Atualizar Postagem
+  type: http
+  seq: 1
+
+http:
+  method: PUT
+  url: https://jsonplaceholder.typicode.com/posts/1
+  body:
+    type: json
+    data: |
+      {
+        "id": 1,
+        "title": "Postagem Atualizada",
+        "body": "Texto alterado com sucesso!",
+        "userId": 1
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        test("Validar se a alteracao deu certo", function() {
+          expect(res.getStatus()).to.equal(200);
+        });
+    - type: tests
+      code: |-
+        test("Validar se a exclusao foi feita com sucesso", function() {
+          expect(res.getStatus()).to.equal(200);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

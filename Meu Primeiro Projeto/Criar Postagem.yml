@@ -1,0 +1,36 @@
+info:
+  name: Criar Postagem
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: https://jsonplaceholder.typicode.com/posts
+  body:
+    type: json
+    data: |
+      {
+        "title": "Minha primeira postagem",
+        "body": "Estou aprendendo a fazer testes de API com o Bruno!",
+        "userId": 1
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        test("Validar se o post foi criado com sucesso", function() {
+          expect(res.getStatus()).to.equal(201);
+        });
+    - type: tests
+      code: |-
+        test("Validar se o post foi criado com sucesso", function() {
+          expect(res.getStatus()).to.equal(201);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
